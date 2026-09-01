@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" role="img" aria-label="Jacobrakai Foundation — free New Jersey court forms">
+  <rect width="1200" height="260" fill="#faf6f0"/>
+  <rect x="0" y="252" width="1200" height="8" fill="#e0503a"/>
+  <g transform="translate(72,58) scale(4.5)">
+    <path d="M13.8 7.6 L3.9 2.6 L8.5 12.4 Q7.2 15.5 9.1 19 Q11.5 22.9 16 25.4 Q20.5 22.9 22.9 19 Q24.8 15.5 23.5 12.4 L28.1 2.6 L18.2 7.6 Q16 8.4 13.8 7.6 Z" fill="#e0742e" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6.4 5.1 L10.4 8.3" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M25.6 5.1 L21.6 8.3" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12.8" cy="15" r="1.2" fill="#241a12"/>
+    <circle cx="19.2" cy="15" r="1.2" fill="#241a12"/>
+    <path d="M14.4 20.1 Q16 19.6 17.6 20.1 Q16.8 22.3 16 22.7 Q15.2 22.3 14.4 20.1 Z" fill="#241a12"/>
+  </g>
+  <text x="248" y="118" font-family="Georgia, 'Times New Roman', serif" font-size="56" fill="#211d18">Jacobrakai <tspan font-style="italic" fill="#e0503a">Foundation.</tspan></text>
+  <text x="250" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#211d18">Every New Jersey court form, free and step by step, no account.</text>
+  <text x="250" y="212" font-family="ui-monospace, 'Courier New', monospace" font-size="17" fill="#6f665a">jacobrakai.org · forms.jacobrakai.org</text>
+</svg>
