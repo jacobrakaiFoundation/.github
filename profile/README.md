@@ -1,24 +1,27 @@
-<div align="center">
+# Jacobrakai Foundation
 
-<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/banner.svg" alt="Jacobrakai Foundation — free New Jersey court forms" width="100%">
+We build free resources for people navigating New Jersey courts and publish security research for people running online services.
 
-[![Start a court form](https://img.shields.io/badge/Start_a_court_form-forms.jacobrakai.org-e0503a?style=for-the-badge)](https://forms.jacobrakai.org/)
-[![Website](https://img.shields.io/badge/Website-jacobrakai.org-e0742e?style=for-the-badge)](https://jacobrakai.org/)
+<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/public-work.webp" alt="Illustration of a shared worktable with court papers, a red stamp, and a terminal connected to a honey jar." width="2172" height="724" />
 
-</div>
+[Court forms](https://in.formapauperis.com/) · [Research](https://jacobrakai.org/research/) · [Threat data](https://jacobrakai.org/feed/)
 
-## Forma Pauperis
+## Court forms
 
-Every New Jersey court form, turned into plain questions — official Judiciary, county, federal and agency. Each one a guided walkthrough that fills the PDF for you. Free. No account. Answers erased 30 minutes after you stop.
+[Forma Pauperis](https://formapauperis.com/) helps people find New Jersey court forms and work through them without an account. Some forms produce a completed PDF; others provide a blank form and a typed answer sheet to copy by hand.
 
-New forms land most days. This is a work in progress.
+The site also includes case guides and public-records resources. It provides legal information, not legal advice.
 
-## Sic Semper Errata
+## Security research
 
-Public-records software for New Jersey municipal clerks. Bellwether tracks an OPRA request from intake through record review and redaction to an approved release, keeping each decision and its stated authority with the record. A public evaluation demo runs on sample records; municipal deployment is in development.
+Our [investigations](https://jacobrakai.org/research/) examine attacks captured by decoy servers. We publish the evidence and the limits of the analysis.
 
-[![Sic Semper Errata](https://img.shields.io/badge/Sic_Semper_Errata-sicsempererrata.com-a83325?style=for-the-badge)](https://sicsempererrata.com/)
+The [public blocklist](https://jacobrakai.org/feed/) includes downloads and an explanation of how addresses are selected.
+
+## Related work
+
+[Sic Semper Errata](https://sicsempererrata.com/) develops public-records software for municipal clerks. Its [Bellwether demo](https://demo.sicsempererrata.com/) uses sample records; [municipal deployment remains in development](https://sicsempererrata.com/editions/).
 
 ---
 
-<sub>jacobrakai.org, forms.jacobrakai.org and sicsempererrata.com are operated by JACOBRAKAI FOUNDATION, a Washington nonprofit corporation (UBI 605 728 469).</sub>
+[About the Foundation](https://jacobrakai.org/about/) · [Sources and corrections](https://jacobrakai.org/authorities/) · [Website](https://jacobrakai.org/)
