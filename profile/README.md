@@ -1,8 +1,8 @@
 # Jacobrakai Foundation
 
-We build free resources for people navigating New Jersey courts and publish security research for people running online services.
+<a href="https://jacobrakai.org/#gh-light-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-light.svg" alt="Free court forms. Open security research." width="960" height="320" /></a><a href="https://jacobrakai.org/#gh-dark-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-dark.svg" alt="Free court forms. Open security research." width="960" height="320" /></a>
 
-<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/public-work.webp" alt="Illustration of a shared worktable with court papers, a red stamp, and a terminal connected to a honey jar." width="2172" height="724" />
+We build free resources for people navigating New Jersey courts and publish security research for people running online services.
 
 [Court forms](https://in.formapauperis.com/nj/run/njforms/) · [Research](https://jacobrakai.org/research/) · [Threat data](https://jacobrakai.org/feed/)
 

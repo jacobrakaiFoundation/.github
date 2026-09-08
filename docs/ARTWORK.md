@@ -1,4 +1,6 @@
-# Foundation public-work illustration
+# Previous Foundation public-work illustration
+
+This earlier illustration is retained for historical links. The current profile uses the website-derived vector masthead documented in [BRAND.md](BRAND.md).
 
 `profile/public-work.webp` is an editorial illustration generated with the built-in image-generation tool. It is not a screenshot or evidence of official court affiliation. Essential names, descriptions, and links remain readable text in `profile/README.md`.
 
