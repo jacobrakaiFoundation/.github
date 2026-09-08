@@ -1,6 +1,6 @@
-# Legal status — Jacob Rakai Foundation
+# Legal status — Jacobrakai Foundation
 
-Jacob Rakai Foundation (EIN **33-3382083**) is a Washington nonprofit corporation.
+Jacobrakai Foundation (EIN **33-3382083**) is a Washington nonprofit corporation.
 
 The Internal Revenue Service recognizes the Foundation as an organization described in IRC section **501(c)(3)**, classified as a public charity under section **170(b)(1)(A)(vi)**, effective **February 11, 2025**. Contributions are deductible to the extent permitted by law.
 
