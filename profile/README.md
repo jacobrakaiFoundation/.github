@@ -4,7 +4,7 @@ We build free resources for people navigating New Jersey courts and publish secu
 
 <img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/public-work.webp" alt="Illustration of a shared worktable with court papers, a red stamp, and a terminal connected to a honey jar." width="2172" height="724" />
 
-[Court forms](https://in.formapauperis.com/) · [Research](https://jacobrakai.org/research/) · [Threat data](https://jacobrakai.org/feed/)
+[Court forms](https://in.formapauperis.com/nj/run/njforms/) · [Research](https://jacobrakai.org/research/) · [Threat data](https://jacobrakai.org/feed/)
 
 ## Court forms
 
