@@ -28,6 +28,8 @@ The [public blocklist](https://jacobrakai.org/feed/) includes downloads and an e
 
 Jacobrakai Foundation (EIN 33-3382083) is recognized by the IRS as a tax-exempt organization under IRC section 501(c)(3), classified as a public charity under section 170(b)(1)(A)(vi), effective February 11, 2025. Contributions are deductible to the extent permitted by law. Determination: IRS Letter 947 dated September 3, 2026.
 
+[Donate / Support Jacobrakai Foundation — JACOBRAKAI FOUNDATION 501(c)(3)](https://donate.stripe.com/eVq4gy97DanS9h60phfrW00)
+
 ---
 
 [About the Foundation](https://jacobrakai.org/about/) · [Sources and corrections](https://jacobrakai.org/authorities/) · [Website](https://jacobrakai.org/)
