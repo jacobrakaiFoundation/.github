@@ -4,9 +4,11 @@ name: Claude code review
 # front door, so the review brief below is about facts, links and brand rules
 # rather than the usual code concerns — almost nothing here is code.
 #
-# Requires an `ANTHROPIC_API_KEY` repository or organization secret. Until that
-# secret exists the review step is skipped rather than failing, so adding this
-# workflow cannot turn every pull request red.
+# Requires a `CLAUDE_CODE_OAUTH_TOKEN` repository or organization secret — a
+# long-lived token from `claude setup-token`, billed to the Claude subscription
+# rather than to API credits. Until that secret exists the review step is
+# skipped rather than failing, so adding this workflow cannot turn every pull
+# request red.
 #
 # The same gate means pull requests from forks are never reviewed: GitHub does
 # not expose secrets to `pull_request` runs from a fork, so the key reads empty
@@ -18,9 +20,10 @@ name: Claude code review
 # Actions are pinned to full commit SHAs with the version in a trailing comment,
 # per docs/MONITORING.md — a floating tag resolves to whatever it points at today.
 #
-# To authenticate with a Claude Code OAuth token instead, replace the
-# `anthropic_api_key` input with `claude_code_oauth_token` and set
-# `CLAUDE_CODE_OAUTH_TOKEN` in place of `ANTHROPIC_API_KEY` below.
+# To authenticate with a pay-as-you-go API key instead, replace the
+# `claude_code_oauth_token` input with `anthropic_api_key` and set
+# `ANTHROPIC_API_KEY` in place of `CLAUDE_CODE_OAUTH_TOKEN` below. An API key
+# with no credit balance fails with "Your credit balance is too low" (PR #8).
 
 on:
   pull_request:
@@ -47,17 +50,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
       - name: Review the pull request
-        if: env.ANTHROPIC_API_KEY != ''
+        if: env.CLAUDE_CODE_OAUTH_TOKEN != ''
         uses: anthropics/claude-code-action@0a8d3c9443bbff909ab973b6a17a340b913f229f # v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           track_progress: true
           use_sticky_comment: true
           claude_args: |
