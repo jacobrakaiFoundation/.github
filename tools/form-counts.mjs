@@ -8,12 +8,17 @@
 //
 //   node tools/form-counts.mjs           rewrite the block in place
 //   node tools/form-counts.mjs --check   report only, never write (exit 1 on drift)
+//
+// FORM_COUNTS_SOURCE overrides the page it reads. An http(s) URL is fetched; any
+// other value is read from disk as a file. That exists so the validation below
+// can be exercised against fixtures — a parser whose only test is the live site
+// is a parser nobody checks until it breaks.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const SOURCE = 'https://in.formapauperis.com/nj/run/njforms/';
+const SOURCE = process.env.FORM_COUNTS_SOURCE || 'https://in.formapauperis.com/nj/run/njforms/';
 const README = join(dirname(fileURLToPath(import.meta.url)), '..', 'profile', 'README.md');
 const START = '<!-- form-counts:start -->';
 const END = '<!-- form-counts:end -->';
@@ -58,9 +63,14 @@ function block({ total, official, other, fillable }) {
 
 const checkOnly = process.argv.includes('--check');
 
-const res = await fetch(SOURCE, { headers: { 'user-agent': 'jacobrakaiFoundation-profile-counts/1.0' } });
-if (!res.ok) throw new Error(`${SOURCE} returned ${res.status}`);
-const counts = extract(await res.text());
+async function load(src) {
+  if (!/^https?:/i.test(src)) return readFileSync(src, 'utf8'); // fixture path, for testing
+  const res = await fetch(src, { headers: { 'user-agent': 'jacobrakaiFoundation-profile-counts/1.0' } });
+  if (!res.ok) throw new Error(`${src} returned ${res.status}`);
+  return res.text();
+}
+
+const counts = extract(await load(SOURCE));
 
 const readme = readFileSync(README, 'utf8');
 const from = readme.indexOf(START);

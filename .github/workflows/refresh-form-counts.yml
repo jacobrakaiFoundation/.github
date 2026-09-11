@@ -35,6 +35,11 @@ jobs:
         with:
           node-version: '22'
 
+      # Fixtures first: if the guards that stop a bad number reaching the public
+      # page are broken, fail here rather than after fetching and rewriting.
+      - name: Check the counts parser against its fixtures
+        run: node tools/form-counts.test.mjs
+
       - name: Read the live catalogue and rewrite the counts
         run: node tools/form-counts.mjs
 
