@@ -29,10 +29,13 @@ on:
 permissions:
   contents: read
   pull-requests: write
-# No `id-token: write`: that is only needed to authenticate by exchanging a
-# GitHub OIDC token (workload identity federation). This workflow authenticates
-# with a secret, so requesting it would be privilege it never uses. Add it back
-# if you switch to `anthropic_federation_rule_id`.
+  id-token: write
+# `id-token: write` is not about the Anthropic key. The action exchanges the
+# job's GitHub OIDC token for a short-lived installation token from the Claude
+# GitHub App (installed org-wide), and posts the review as that app. Without it
+# the step fails with "Could not fetch an OIDC token" — seen on PR #8. The
+# alternative is passing `github_token: ${{ secrets.GITHUB_TOKEN }}`, which
+# posts as github-actions[bot] instead.
 
 concurrency:
   group: claude-review-${{ github.event.pull_request.number }}
