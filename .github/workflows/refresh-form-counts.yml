@@ -25,6 +25,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -53,7 +54,16 @@ jobs:
           git checkout -B "$branch"
           git add profile/README.md
           git commit -m "docs: refresh court-form counts on the org profile"
-          git push --force-with-lease -u origin "$branch"
+
+          # Plain --force, deliberately. This branch is machine-owned and rebuilt
+          # from main on every run, so its history always diverges from whatever
+          # the previous run pushed. --force-with-lease cannot be used here: the
+          # checkout is a shallow, single-branch clone with no remote-tracking ref
+          # for this branch, and the bare lease rejects with "stale info" on every
+          # run after the first. Fetching the ref first to satisfy the lease would
+          # only compute it moments before the push, which protects nothing. The
+          # real safety gate is that this opens a pull request for a human.
+          git push --force -u origin "$branch"
 
           if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
             echo "An open pull request for $branch already exists; pushed to it."

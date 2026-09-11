@@ -54,6 +54,7 @@ body{margin:0;background:var(--bg)}
 const page_html = (mode, blank) => `<!doctype html><html data-color-mode="${mode}"><head><meta charset="utf-8"><style>${css}</style></head><body><article class="markdown-body">${blank ? body.replaceAll(/<img [^>]*src="[^"]*"/g, '<img src=""') : body}</article></body></html>`;
 
 const browser = await chromium.launch();
+try {
 const shots = [];
 for (const mode of ['light', 'dark']) {
   for (const [label, width] of [['desktop', 858], ['mobile', 358]]) {
@@ -78,5 +79,9 @@ await p.goto(`file://${REPO}/profile/.preview.html`, { waitUntil: 'load' });
 const noimg = `${process.argv[2] || '/tmp/preview'}-noimages.png`;
 await p.screenshot({ path: noimg, fullPage: true });
 console.log('no-images:', noimg);
-await browser.close();
-rmSync(`${REPO}/profile/.preview.html`, { force: true });
+} finally {
+  // Always remove the scratch file; a thrown run used to leave it behind
+  // as an untracked file sitting in the published-assets directory.
+  await browser.close();
+  rmSync(`${REPO}/profile/.preview.html`, { force: true });
+}
