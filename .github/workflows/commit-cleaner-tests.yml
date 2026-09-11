@@ -1,0 +1,27 @@
+name: commit-cleaner tests
+
+# tools/commit-cleaner is copied into other repositories as their .githooks and
+# .claude/hooks; a regression here would silently stop stripping attribution
+# everywhere. Runs only when the tool or this workflow changes.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/commit-cleaner/**
+      - .github/workflows/commit-cleaner-tests.yml
+  pull_request:
+    paths:
+      - tools/commit-cleaner/**
+      - .github/workflows/commit-cleaner-tests.yml
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: tools/commit-cleaner/test.sh
