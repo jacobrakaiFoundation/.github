@@ -15,6 +15,28 @@ commits that already carry them.
 | `claude-settings.example.json` | Drop-in `.claude/settings.json` for a repository that vendors the hook under `.githooks/`. |
 | `test.sh` | Tests for all of the above. |
 
+## First line of defense: turn the trailers off
+
+Claude Code has a supported setting that stops it writing the trailers in the
+first place. Put this in `.claude/settings.json` (project) or
+`~/.claude/settings.json` (every project on your machine):
+
+```json
+{
+  "attribution": {
+    "commit": "",
+    "sessionUrl": false
+  }
+}
+```
+
+`commit: ""` removes the `Co-Authored-By` trailer and `sessionUrl: false`
+removes the `Claude-Session:` link that cloud and Remote Control sessions add.
+Add `"pr": ""` to drop the pull-request footer too. This works everywhere the
+settings file loads, with no git configuration. The hook below is the backstop
+for anything that still slips through (older clients, other tools, pasted
+messages).
+
 ## What is removed
 
 * `Co-Authored-By:` lines whose address is `@anthropic.com`, or whose name starts with `Claude`
@@ -54,7 +76,8 @@ is a fresh clone with no hooks installed:
 
 1. Copy `commit-msg` to `.githooks/commit-msg` in the repository.
 2. Copy `guard.py` to `.claude/hooks/commit-guard.py`.
-3. Copy `claude-settings.example.json` to `.claude/settings.json`.
+3. Copy `claude-settings.example.json` to `.claude/settings.json`. It carries
+   the `attribution` setting above plus the two hooks.
 
 The `SessionStart` hook points `core.hooksPath` at `.githooks/` at the start of
 every session, and the `PreToolUse` hook blocks bypasses. Contributors working
