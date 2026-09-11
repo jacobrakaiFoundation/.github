@@ -1,0 +1,12 @@
+# Jacobrakai Foundation
+# Deploy this file at https://jacobrakai.org/.well-known/security.txt
+# Served as text/plain over HTTPS. RFC 9116.
+#
+# Expires must be renewed before the date below, or parsers treat the file
+# as stale. Set a calendar reminder for one month ahead of it.
+
+Contact: mailto:security@jacobrakai.org
+Expires: 2027-09-11T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://jacobrakai.org/.well-known/security.txt
+Policy: https://github.com/jacobrakaiFoundation/.github/blob/main/SECURITY.md
