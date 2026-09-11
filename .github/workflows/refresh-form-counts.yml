@@ -1,0 +1,94 @@
+name: Refresh form counts
+
+# The org profile states how many New Jersey court forms the catalogue carries.
+# Those numbers move when the catalogue is rebuilt, and a static README has no
+# way to notice. This checks monthly and opens a pull request when they drift,
+# so a human still reviews every change to the public page.
+#
+# Only first-party actions are used here, deliberately: this organization
+# publishes security research, and the front door should not depend on a
+# third-party action's supply chain. Actions are pinned to full commit SHAs with
+# the version in a trailing comment, per docs/MONITORING.md — a floating tag
+# resolves to whatever that tag points at today.
+
+on:
+  schedule:
+    - cron: '17 6 1 * *' # 06:17 UTC on the 1st of each month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-form-counts
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
+      # Fixtures first: if the guards that stop a bad number reaching the public
+      # page are broken, fail here rather than after fetching and rewriting.
+      - name: Check the counts parser against its fixtures
+        run: node tools/form-counts.test.mjs
+
+      - name: Read the live catalogue and rewrite the counts
+        run: node tools/form-counts.mjs
+
+      - name: Open a pull request if the numbers moved
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- profile/README.md; then
+            echo "Counts unchanged. Nothing to do."
+            exit 0
+          fi
+
+          branch=automation/form-counts
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add profile/README.md
+          git commit -m "docs: refresh court-form counts on the org profile"
+
+          # Plain --force, deliberately. This branch is machine-owned and rebuilt
+          # from main on every run, so its history always diverges from whatever
+          # the previous run pushed. --force-with-lease cannot be used here: the
+          # checkout is a shallow, single-branch clone with no remote-tracking ref
+          # for this branch, and the bare lease rejects with "stale info" on every
+          # run after the first. Fetching the ref first to satisfy the lease would
+          # only compute it moments before the push, which protects nothing. The
+          # real safety gate is that this opens a pull request for a human.
+          git push --force -u origin "$branch"
+
+          if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            echo "An open pull request for $branch already exists; pushed to it."
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "docs: refresh court-form counts on the org profile" \
+            --body "$(cat <<'BODY'
+          The court-form counts on the organization profile no longer match the live
+          catalogue at https://in.formapauperis.com/nj/run/njforms/.
+
+          This pull request was opened automatically by `.github/workflows/refresh-form-counts.yml`,
+          which reads the counts from the catalogue page and rewrites the block between the
+          `form-counts` markers in `profile/README.md`. Only those two lines change.
+
+          Please check the numbers against the catalogue before merging.
+          BODY
+          )"

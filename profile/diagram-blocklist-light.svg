@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="160" viewBox="0 0 480 160" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Public threat data, open access</title>
+<desc id="desc">A ruled table of observed addresses, marked and carried through to a verified published list.</desc>
+  <g stroke="#6f665a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="58" y="24" width="204" height="112" rx="6" fill="#fffdf9"/>
+    <path opacity=".4" d="M58 51h204M58 79h204M58 107h204"/>
+    <path d="M79 38h83m-83 27h112m-112 28h84m-84 28h101" opacity=".7"/>
+    <path d="m222 34 8 8m0-8-8 8m0 19 8 8m0-8-8 8m0 20 8 8m0-8-8 8m0 20 8 8m0-8-8 8" stroke="#b23a25"/>
+    <path d="M262 80h57" opacity=".4"/>
+    <path d="m356 25 48 17v36c0 26-24 46-48 57-24-11-48-31-48-57V42z" fill="#fffdf9"/>
+    <path stroke-width="3" d="m338 78 13 13 25-28" stroke="#b23a25"/>
+  </g>
+</svg>

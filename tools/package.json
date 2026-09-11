@@ -1,0 +1,9 @@
+{
+  "name": "jacobrakai-profile-tools",
+  "private": true,
+  "description": "Local tooling for the organization profile page. form-counts.mjs has no dependencies and is what CI runs; preview.mjs renders and screenshots the page before pushing.",
+  "devDependencies": {
+    "marked": "^15.0.0",
+    "playwright": "1.56.1"
+  }
+}
