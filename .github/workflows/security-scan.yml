@@ -1,0 +1,73 @@
+name: Security scan
+
+# Reusable workflow. Repositories call it instead of maintaining their own
+# CodeQL and dependency-review jobs. See docs/MONITORING.md for adoption.
+
+on:
+  workflow_call:
+    inputs:
+      codeql-languages:
+        description: >-
+          JSON array of CodeQL languages, for example '["javascript-typescript"]'
+          or '["python","go"]'. Left at the default, CodeQL does not run.
+        type: string
+        default: "[]"
+      codeql-build-mode:
+        description: CodeQL build mode — autobuild, none, or manual.
+        type: string
+        default: autobuild
+      dependency-review:
+        description: Review dependency changes on pull requests.
+        type: boolean
+        default: true
+      fail-on-severity:
+        description: Severity at which dependency review fails — low, moderate, high, critical.
+        type: string
+        default: high
+
+jobs:
+  codeql:
+    if: inputs.codeql-languages != '[]'
+    name: CodeQL (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        # The job is skipped by the `if` above when no language is requested.
+        # The fallback keeps the matrix non-empty regardless, since an empty
+        # matrix vector is a workflow error rather than a skip.
+        language: ${{ fromJSON(inputs.codeql-languages != '[]' && inputs.codeql-languages || '["javascript-typescript"]') }}
+    steps:
+      - name: Check out the calling repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ inputs.codeql-build-mode }}
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4
+        with:
+          category: "/language:${{ matrix.language }}"
+
+  dependency-review:
+    if: inputs.dependency-review && github.event_name == 'pull_request'
+    name: Dependency review
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Check out the calling repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@cc4f6536e38d1126c5e3b0683d469a14f23bfea4 # v3
+        with:
+          fail-on-severity: ${{ inputs.fail-on-severity }}
+          comment-summary-in-pr: on-failure
