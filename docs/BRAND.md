@@ -43,12 +43,23 @@ The diagrams carry no background. The website draws them on a `--bg` panel, but 
 GitHub the page colour already sits behind the image, and a transparent asset stays
 correct if the theme-switching mechanism below ever stops working.
 
-**Stroke weight follows the display width, not the file.** `stroke-width` is always
-`1.5`; the viewBox is chosen so the rendered hairline lands near 1.3px at the size the
-asset is actually shown. The card diagrams are 480 units wide and display at about
-480px; the forms diagram is 960 units wide and spans the full profile column. Drawing a
-full-width asset in 480-unit space and stretching it would double the brand hairline.
-This is the rule a future edit is most likely to break.
+**Stroke weight follows the display width, not the file.** `stroke-width` is `1.5` in
+every asset, so the hairline a reader actually sees is `1.5 × (display width ÷ viewBox
+width)`. Measured in the profile column at 858px:
+
+| Asset | viewBox width | Rendered at 858px | Hairline | At 358px (phone) |
+| --- | --- | --- | --- | --- |
+| `diagram-forms-*` | 960 | 858px (×0.89) | 1.34px | 0.56px |
+| `diagram-research-*`, `diagram-blocklist-*` | 480 | 480px (×1.00) | 1.50px | 1.12px |
+
+The cards render one-to-one and carry the full 1.5px; only the full-width forms diagram
+is scaled down. On a phone every asset thins out, the forms diagram to sub-pixel — an
+accepted cost, because the diagrams are decorative, carry `alt=""`, and the caption
+beneath each one carries the meaning.
+
+The rule worth keeping is the one about authoring space: a full-column asset is drawn in
+960-unit space, not 480. Drawing it at 480 and letting the column stretch it would
+render the hairline at roughly 2.7px, nearly double the brand weight.
 
 **No text inside the diagrams.** An SVG referenced through `<img>` cannot reach the
 page's webfonts, so Playfair Display and JetBrains Mono would fall back to whatever the
