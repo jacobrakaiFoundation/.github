@@ -66,6 +66,13 @@ const readme = readFileSync(README, 'utf8');
 const from = readme.indexOf(START);
 const to = readme.indexOf(END);
 if (from === -1 || to === -1) throw new Error(`markers ${START} / ${END} not found in ${README}`);
+// Guard the degenerate cases rather than splicing blindly: an end marker before
+// its start, or a second pair, both produce a silently duplicated block that
+// would then be opened as a pull request against the public page.
+if (to < from) throw new Error(`${END} appears before ${START} in ${README}`);
+if (readme.indexOf(START, from + START.length) !== -1 || readme.indexOf(END, to + END.length) !== -1) {
+  throw new Error(`more than one ${START} / ${END} pair in ${README}`);
+}
 
 const next = readme.slice(0, from) + block(counts) + readme.slice(to + END.length);
 
