@@ -1,0 +1,92 @@
+name: Claude code review
+
+# Reviews pull requests against this repository. This is the organization's
+# front door, so the review brief below is about facts, links and brand rules
+# rather than the usual code concerns — almost nothing here is code.
+#
+# Requires an `ANTHROPIC_API_KEY` repository or organization secret. Until that
+# secret exists the review step is skipped rather than failing, so adding this
+# workflow cannot turn every pull request red.
+#
+# To authenticate with a Claude Code OAuth token instead, replace the
+# `anthropic_api_key` input with `claude_code_oauth_token` and set
+# `CLAUDE_CODE_OAUTH_TOKEN` in place of `ANTHROPIC_API_KEY` below.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Review the pull request
+        if: env.ANTHROPIC_API_KEY != ''
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          track_progress: true
+          use_sticky_comment: true
+          claude_args: |
+            --model claude-opus-5
+          prompt: |
+            Review this pull request to the Jacobrakai Foundation's organization
+            profile repository. This repository holds the page rendered at
+            github.com/jacobrakaiFoundation plus the documents describing how it
+            is built. It is public-facing content for a 501(c)(3) that publishes
+            legal information and security research, so accuracy matters more
+            than style.
+
+            Read `docs/BRAND.md`, `docs/ARTWORK.md` and `docs/LEGAL.md` first —
+            they are the standards this repository holds itself to — then review
+            the diff against them.
+
+            What to look for, roughly in priority order:
+
+            1. Factual drift. Every claim on the profile page should match what
+               the live sites actually say: jacobrakai.org, formapauperis.com,
+               in.formapauperis.com and sicsempererrata.com. Check numbers,
+               dates, form identifiers and rule citations against their sources.
+               The tax-exempt paragraph must stay consistent with
+               `docs/LEGAL.md`.
+            2. Overclaiming. House style publishes each capability next to its
+               limit — "legal information, not legal advice", "static analysis
+               only — nothing was executed", "planned and not available for
+               purchase". Flag any edit that drops a limit, softens one, or
+               states a capability without its caveat.
+            3. Links. Wrong destinations matter more than dead ones here: a link
+               that resolves but lands on the wrong page is the failure this
+               repository has actually shipped before. Check that each link goes
+               where its text promises.
+            4. GitHub's markdown sanitizer. It strips `<svg>`, `class` and
+               `style`, and allows only a fixed set of elements and attributes.
+               Markup outside that set disappears silently on the rendered page
+               rather than erroring. Flag anything that would be stripped.
+            5. Brand rules in `docs/BRAND.md`. In particular: the masthead SVGs
+               are frozen and must stay byte-identical; light and dark asset
+               pairs must not drift apart; stroke weight follows an asset's
+               display width; no text, scripts or external references inside
+               SVGs; no volatile number baked into artwork.
+            6. Accessibility. Informative images need real alt text, decorative
+               ones need `alt=""` and must never sit inside a link, heading
+               levels should not skip, and no fact should exist only inside an
+               image.
+
+            Be specific and quote the line you mean. If the change is sound, say
+            so briefly rather than inventing findings.
