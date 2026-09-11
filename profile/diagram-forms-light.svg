@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="200" viewBox="0 0 960 200" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Find a form, answer the questions, download a completed PDF</title>
+<desc id="desc">Line diagram in three stages: a stack of New Jersey court forms, a sheet of guided questions with one answer selected, and a completed PDF.</desc>
+  <g fill="none" stroke="#6f665a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path opacity=".3" d="M226 100h44m296 0h90"/>
+    <rect x="112" y="36" width="128" height="112" rx="8" fill="#fffdf9" opacity=".5"/>
+    <rect x="98" y="46" width="128" height="112" rx="8" fill="#fffdf9" opacity=".75"/>
+    <rect x="84" y="56" width="128" height="112" rx="8" fill="#fffdf9"/>
+    <path d="M104 84h88m-88 24h88m-88 24h56"/>
+    <path d="m288 94 8 6-8 6" opacity=".7"/>
+    <rect x="372" y="34" width="176" height="132" rx="8" fill="#fffdf9"/>
+    <path d="M396 62h128"/>
+    <circle cx="404" cy="100" r="9"/><path d="M424 100h100"/>
+    <circle cx="404" cy="136" r="9" stroke="#b23a25"/>
+    <path d="m399 136 4 4 8-9" stroke="#b23a25" stroke-width="2.5"/>
+    <path d="M424 136h74"/>
+    <path d="m618 94 8 6-8 6" opacity=".7"/>
+    <path d="M700 34h108l40 40v92H700z" fill="#fffdf9"/>
+    <path d="M808 34v40h40M724 100h96m-96 24h60"/>
+    <path d="m724 148 16 16 34-38" stroke="#b23a25" stroke-width="3"/>
+  </g>
+</svg>

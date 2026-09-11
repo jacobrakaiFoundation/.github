@@ -1,0 +1,77 @@
+name: Refresh form counts
+
+# The org profile states how many New Jersey court forms the catalogue carries.
+# Those numbers move when the catalogue is rebuilt, and a static README has no
+# way to notice. This checks monthly and opens a pull request when they drift,
+# so a human still reviews every change to the public page.
+#
+# Only first-party actions are used here, deliberately: this organization
+# publishes security research, and the front door should not depend on a
+# third-party action's supply chain.
+
+on:
+  schedule:
+    - cron: '17 6 1 * *' # 06:17 UTC on the 1st of each month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-form-counts
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Read the live catalogue and rewrite the counts
+        run: node tools/form-counts.mjs
+
+      - name: Open a pull request if the numbers moved
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- profile/README.md; then
+            echo "Counts unchanged. Nothing to do."
+            exit 0
+          fi
+
+          branch=automation/form-counts
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add profile/README.md
+          git commit -m "docs: refresh court-form counts on the org profile"
+          git push --force-with-lease -u origin "$branch"
+
+          if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            echo "An open pull request for $branch already exists; pushed to it."
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "docs: refresh court-form counts on the org profile" \
+            --body "$(cat <<'BODY'
+          The court-form counts on the organization profile no longer match the live
+          catalogue at https://in.formapauperis.com/nj/run/njforms/.
+
+          This pull request was opened automatically by `.github/workflows/refresh-form-counts.yml`,
+          which reads the counts from the catalogue page and rewrites the block between the
+          `form-counts` markers in `profile/README.md`. Only those two lines change.
+
+          Please check the numbers against the catalogue before merging.
+          BODY
+          )"
