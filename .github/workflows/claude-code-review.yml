@@ -15,6 +15,9 @@ name: Claude code review
 # would need `pull_request_target`, which runs untrusted code against the base
 # repo's secrets, and is not worth it for this repository.
 #
+# Actions are pinned to full commit SHAs with the version in a trailing comment,
+# per docs/MONITORING.md — a floating tag resolves to whatever it points at today.
+#
 # To authenticate with a Claude Code OAuth token instead, replace the
 # `anthropic_api_key` input with `claude_code_oauth_token` and set
 # `CLAUDE_CODE_OAUTH_TOKEN` in place of `ANTHROPIC_API_KEY` below.
@@ -43,13 +46,13 @@ jobs:
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           fetch-depth: 0
 
       - name: Review the pull request
         if: env.ANTHROPIC_API_KEY != ''
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@0a8d3c9443bbff909ab973b6a17a340b913f229f # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           track_progress: true
