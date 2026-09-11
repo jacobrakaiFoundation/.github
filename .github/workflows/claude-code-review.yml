@@ -8,6 +8,13 @@ name: Claude code review
 # secret exists the review step is skipped rather than failing, so adding this
 # workflow cannot turn every pull request red.
 #
+# The same gate means pull requests from forks are never reviewed: GitHub does
+# not expose secrets to `pull_request` runs from a fork, so the key reads empty
+# and the step skips. That is the safe default — a fork PR can change this
+# workflow, and handing it a credential would hand it the key. Reviewing forks
+# would need `pull_request_target`, which runs untrusted code against the base
+# repo's secrets, and is not worth it for this repository.
+#
 # To authenticate with a Claude Code OAuth token instead, replace the
 # `anthropic_api_key` input with `claude_code_oauth_token` and set
 # `CLAUDE_CODE_OAUTH_TOKEN` in place of `ANTHROPIC_API_KEY` below.
@@ -19,7 +26,10 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  id-token: write
+# No `id-token: write`: that is only needed to authenticate by exchanging a
+# GitHub OIDC token (workload identity federation). This workflow authenticates
+# with a secret, so requesting it would be privilege it never uses. Add it back
+# if you switch to `anthropic_federation_rule_id`.
 
 concurrency:
   group: claude-review-${{ github.event.pull_request.number }}
@@ -29,6 +39,7 @@ jobs:
   review:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
