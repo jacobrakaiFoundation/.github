@@ -1,10 +1,40 @@
 # Jacobrakai Foundation
 
-<a href="https://jacobrakai.org/#gh-light-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-light.svg" alt="Free court forms. Open security research." width="960" /></a><a href="https://jacobrakai.org/#gh-dark-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-dark.svg" alt="Free court forms. Open security research." width="960" /></a>
+<a href="https://jacobrakai.org/#gh-light-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-light.svg" alt="AI governance, research, and forensics." width="960" /></a><a href="https://jacobrakai.org/#gh-dark-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-dark.svg" alt="AI governance, research, and forensics." width="960" /></a>
 
-We build free resources for people navigating New Jersey courts, publish security research for people running online services, and make free apps and games with no ads and no accounts.
+We run internet-exposed decoy servers, analyze what attacks them, and publish the research, forensic audits and investigations that come out of it, each with its method, its evidence and its limits stated. We also build free resources for people navigating New Jersey courts, and make free apps and games with no ads and no accounts.
 
-[Forms ↗](https://in.formapauperis.com/nj/run/njforms/) · [Research](https://jacobrakai.org/research/) · [Threat data](https://jacobrakai.org/feed/) · [Apps & games](#apps-and-games) · [Veterans](https://jacobrakai.org/veterans/) · [Sources](https://jacobrakai.org/authorities/) · [About](https://jacobrakai.org/about/)
+[Research](https://jacobrakai.org/research/) · [Forensics](https://jacobrakai.org/investigations/) · [Threat data](https://jacobrakai.org/feed/) · [Forms ↗](https://in.formapauperis.com/nj/run/njforms/) · [Apps & games](#apps-and-games) · [Veterans](https://jacobrakai.org/veterans/) · [Sources](https://jacobrakai.org/authorities/) · [About](https://jacobrakai.org/about/)
+
+## Security research and threat data
+
+Research and data for people who operate online services. The Foundation runs internet-exposed decoy servers — SSH, FTP, telnet, MySQL, VNC, and email — and publishes what attacks them.
+
+### Threat research
+
+<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-research-light.svg#gh-light-mode-only" alt="" width="480" /><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-research-dark.svg#gh-dark-mode-only" alt="" width="480" />
+
+<small>Observe · Investigate · Publish</small>
+
+[Write-ups](https://jacobrakai.org/research/) of attacks observed by the decoy servers, each published with its evidence and with the limits of what that evidence supports. Static analysis only — nothing was executed. Attacker-supplied URLs are never fetched from a sensor, and no attribution is claimed beyond infrastructure.
+
+[Read the research →](https://jacobrakai.org/research/)
+
+### Public blocklist
+
+<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-blocklist-light.svg#gh-light-mode-only" alt="" width="480" /><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-blocklist-dark.svg#gh-dark-mode-only" alt="" width="480" />
+
+<small>Public threat data · Open access</small>
+
+Every address on the [blocklist](https://jacobrakai.org/feed/) attacked a decoy service at volume. Plain text, JSON and CSV under `CC0`, refreshed hourly. Entries age out after 30 days without activity, and the delisting contact is published and answered.
+
+[View threat data →](https://jacobrakai.org/feed/)
+
+### Forensic audits and investigations
+
+[Defensive security and forensic work](https://jacobrakai.org/investigations/): malware captured on the Foundation's own sensors, enterprise incidents worked to closure, integrity audits of public records, and primary-source verification of published legal information. Every finding is published with its method and its limits.
+
+[Read the investigations →](https://jacobrakai.org/investigations/)
 
 ## Court forms
 
@@ -29,30 +59,6 @@ Start somewhere specific:
 - [**Public records**](https://formapauperis.com/records/) — where to file an OPRA request and search deeds, in all 21 counties.
 - [**Case guides**](https://formapauperis.com/records/life-of-an-action/) — sixteen step-by-step walkthroughs, with the rule behind each step.
 - [**Lawyer complaints**](https://formapauperis.com/records/bar-complaints/) — ethics grievances and fee disputes: where they go in your county, and the deadlines.
-
-## Security research and threat data
-
-Research and data for people who operate online services. The Foundation runs internet-exposed decoy servers — SSH, FTP, telnet, MySQL, VNC, and email — and publishes what attacks them.
-
-### Threat research
-
-<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-research-light.svg#gh-light-mode-only" alt="" width="480" /><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-research-dark.svg#gh-dark-mode-only" alt="" width="480" />
-
-<small>Observe · Investigate · Publish</small>
-
-[Investigations](https://jacobrakai.org/research/) of attacks observed by the decoy servers, each published with its evidence and with the limits of what that evidence supports. Static analysis only — nothing was executed. Attacker-supplied URLs are never fetched from a sensor, and no attribution is claimed beyond infrastructure.
-
-[Read the research →](https://jacobrakai.org/research/)
-
-### Public blocklist
-
-<img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-blocklist-light.svg#gh-light-mode-only" alt="" width="480" /><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/diagram-blocklist-dark.svg#gh-dark-mode-only" alt="" width="480" />
-
-<small>Public threat data · Open access</small>
-
-Every address on the [blocklist](https://jacobrakai.org/feed/) attacked a decoy service at volume. Plain text, JSON and CSV under `CC0`, refreshed hourly. Entries age out after 30 days without activity, and the delisting contact is published and answered.
-
-[View threat data →](https://jacobrakai.org/feed/)
 
 ## Sources and corrections
 
