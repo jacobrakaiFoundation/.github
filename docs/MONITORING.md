@@ -22,7 +22,7 @@ on:
     - cron: "17 6 * * 1"
 
 permissions:
-  contents: read
+  contents: write
   security-events: write
   pull-requests: write
 
@@ -41,15 +41,31 @@ Inputs:
 | `codeql-build-mode` | `autobuild` | `autobuild`, `none`, or `manual`. Compiled languages need `autobuild` or `manual`. |
 | `dependency-review` | `true` | Review dependency changes. The job runs on `pull_request` events only. |
 | `fail-on-severity` | `high` | Severity at which dependency review fails the check. |
+| `auto-approve-dependabot` | `true` | Approve and enable squash auto-merge on `dependabot[bot]` pull requests once `dependency-review` passes. |
 
 Two constraints apply. A caller grants permissions at the caller's level: a
 reusable workflow can lower them but never raise them, so `security-events: write`
-must appear in the calling workflow or CodeQL cannot upload results. And
-`dependency-review` requires a public repository or GitHub Advanced Security;
-on a private repository without it, set `dependency-review: false`.
+must appear in the calling workflow or CodeQL cannot upload results, and
+`contents: write` plus `pull-requests: write` must appear for `dependabot-approve`
+to approve and enable squash auto-merge. And `dependency-review` requires a public
+repository or GitHub Advanced Security; on a private repository without it, set
+`dependency-review: false`.
 
 The scheduled trigger matters as much as the scan. Without one, a dependency that
 becomes vulnerable after the last commit is not surfaced until someone pushes.
+
+## Automated approvals and merge settings
+
+Organization and repository settings are configured so the `dependabot-approve` job
+in `security-scan.yml` (and the autonomous `merge.yml` loop in `familiar`) can
+approve and merge pull requests with `GITHUB_TOKEN`:
+
+- **Organization Actions permissions** (`/organizations/jacobrakaiFoundation/settings/actions`):
+  *Allow GitHub Actions to create and approve pull requests* is enabled.
+- **Repository workflow permissions** (`PUT /repos/jacobrakaiFoundation/{repo}/actions/permissions/workflow`):
+  `default_workflow_permissions: read` and `can_approve_pull_request_reviews: true` are set across all 10 repositories.
+- **Repository merge settings** (`PATCH /repos/jacobrakaiFoundation/{repo}`):
+  `delete_branch_on_merge: true` is enabled on all 10 repositories, and `allow_auto_merge: true` is enabled on all 6 public repositories.
 
 ## Dependabot convention
 
@@ -133,6 +149,6 @@ is a fork; lower priority than the two above.
 
 Beyond Dependabot: adopt the calling workflow above in `culk` and
 `claude-orgtree` with `codeql-languages: '["javascript-typescript"]'`; in
-`mewtoo`, `nodary`, and `4thehardway` with `'["python"]'`; and in `honeypot-blocklist` with
+`mewtoo` and `nodary` with `'["python"]'`; and in `honeypot-blocklist` with
 `'["go"]'`. `PSNetMap` and `airpods-connect` are PowerShell, which CodeQL does not support — dependency
 review and CI are the coverage available there.
