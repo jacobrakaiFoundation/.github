@@ -78,10 +78,10 @@ the session that produced this file and are unaudited.
 | `jacobyoby/jacobyoby` | none — profile repository, no code | — | — |
 | `jacobrakaiFoundation/.github` | github-actions | yes | none |
 | `jacobrakaiFoundation/beanstalk` | npm `/food-recall-app`, npm `/notification-service`, github-actions | yes | CodeQL (`javascript-typescript`), dependency review |
-| `jacobrakaiFoundation/4thehardway` | none | yes | none |
-| `jacobrakaiFoundation/claude-mods` | none | no | none |
-| `jacobrakaiFoundation/airpods-connect` | none | no | none |
-| `jacobrakaiFoundation/vestigium` | none — static Pages landing, no product source | no | — |
+| `jacobrakaiFoundation/4thehardway` | github-actions | yes | none |
+| `jacobrakaiFoundation/claude-mods` | gomod `/apps/ClaudePinchZoom/windows`, github-actions | no | none |
+| `jacobrakaiFoundation/airpods-connect` | github-actions | no | none |
+| `jacobrakaiFoundation/vestigium` | github-actions | no | — |
 
 At the original September 2026 audit, no repository ran CodeQL, dependency review, or any vulnerability audit, and `honeypot-blocklist` alone ran on a schedule and pinned its actions to commit SHAs. `jacobrakaiFoundation/beanstalk` has since adopted the shared `security-scan.yml` workflow (`javascript-typescript`, weekly schedule) and pinned its workflow actions to commit SHAs, as has `jacobrakaiFoundation/vestigium`.
 
