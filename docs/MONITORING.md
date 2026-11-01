@@ -62,7 +62,7 @@ Pin actions to full commit SHAs with the version in a trailing comment. A
 floating tag such as `@v4` resolves to whatever that tag currently points at.
 Once pinned, Dependabot proposes SHA bumps and rewrites the comment.
 
-## Audit — 11 September 2026
+## Audit — 11 September 2026 (updated November 2026)
 
 Public repositories, read directly. Private repositories were not reachable from
 the session that produced this file and are unaudited.
@@ -72,16 +72,18 @@ the session that produced this file and are unaudited.
 | `jacobyoby/honeypot-blocklist` | gomod, github-actions | yes | none |
 | `jacobyoby/nodary` | uv, github-actions | no | none |
 | `jacobyoby/culk` | npm, github-actions | no | none |
-| `jacobyoby/beanstalk` | npm `/food-recall-app`, github-actions | no | none |
 | `jacobyoby/PSNetMap` | github-actions | no | none |
 | `jacobyoby/mewtoo` | pip | no | none |
 | `jacobyoby/claude-orgtree` | npm `/frontend`, github-actions | no | none |
 | `jacobyoby/jacobyoby` | none — profile repository, no code | — | — |
-| `jacobrakaiFoundation/.github` | github-actions | no | none |
+| `jacobrakaiFoundation/.github` | github-actions | yes | none |
+| `jacobrakaiFoundation/beanstalk` | npm `/food-recall-app`, npm `/notification-service`, github-actions | yes | CodeQL (`javascript-typescript`), dependency review |
+| `jacobrakaiFoundation/4thehardway` | none | yes | none |
+| `jacobrakaiFoundation/claude-mods` | none | no | none |
+| `jacobrakaiFoundation/airpods-connect` | none | no | none |
+| `jacobrakaiFoundation/vestigium` | none — static Pages landing, no product source | no | — |
 
-No repository ran CodeQL, dependency review, or any vulnerability audit.
-`honeypot-blocklist` alone ran on a schedule, and alone pinned its actions to
-commit SHAs.
+At the original September 2026 audit, no repository ran CodeQL, dependency review, or any vulnerability audit, and `honeypot-blocklist` alone ran on a schedule and pinned its actions to commit SHAs. `jacobrakaiFoundation/beanstalk` has since adopted the shared `security-scan.yml` workflow (`javascript-typescript`, weekly schedule) and pinned its workflow actions to commit SHAs, as has `jacobrakaiFoundation/vestigium`.
 
 Forks tracking upstream projects — `docassemble`, `Auto-GPT`, `jusText` — are
 outside this convention.
@@ -129,8 +131,8 @@ unmonitored. Append:
 `docker` entries for `/sandbox` and `/hub`, on the same schedule. This repository
 is a fork; lower priority than the two above.
 
-Beyond Dependabot: adopt the calling workflow above in `culk`, `beanstalk`, and
+Beyond Dependabot: adopt the calling workflow above in `culk` and
 `claude-orgtree` with `codeql-languages: '["javascript-typescript"]'`; in
-`mewtoo` and `nodary` with `'["python"]'`; and in `honeypot-blocklist` with
-`'["go"]'`. `PSNetMap` is PowerShell, which CodeQL does not support — dependency
-review and the existing CI are the coverage available there.
+`mewtoo`, `nodary`, and `4thehardway` with `'["python"]'`; and in `honeypot-blocklist` with
+`'["go"]'`. `PSNetMap` and `airpods-connect` are PowerShell, which CodeQL does not support — dependency
+review and CI are the coverage available there.

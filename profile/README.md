@@ -54,17 +54,23 @@ Every address on the [blocklist](https://jacobrakai.org/feed/) attacked a decoy 
 
 [View threat data →](https://jacobrakai.org/feed/)
 
+### Certificate scanner
+
+[**4thehardway**](https://github.com/jacobrakaiFoundation/4thehardway) — offline eMudhra / emSign certificate scanner for Windows, Linux and macOS that finds compromised CA certificates, affected trust stores and signed software with Python or PowerShell, with no network connections.
+
 ## Sources and corrections
 
 The [table of authorities](https://jacobrakai.org/authorities/) records sources, verification status and review dates for the published material. Findings are corrected in place, with the correction left visible rather than the error quietly removed.
 
 ## Apps and games
 
-Free, with no ads and no accounts. Android today, on Google Play.
+Free, with no ads and no accounts. Android today, on Google Play, plus open-source desktop and developer tools.
 
 - [**FreeDF**](https://play.google.com/store/apps/details?id=freedf.jacobrakai.org) — a document scanner that turns paper into a PDF on your phone. Scans stay on the phone; the Foundation runs no server for the app. An iPhone version is in preparation. [Privacy details](https://jacobrakai.org/privacy/).
 - [**GGz**](https://jacobrakai.org/ggz/) — five small games built for screen readers first, including two audio games: a quiz-show trivia board and hangman read letter by letter.
 - [**Beanstalk**](https://jacobrakaifoundation.github.io/beanstalk/) — search FDA and USDA food recall records by product, company or hazard, with source links and local watchlists. [Google Play](https://play.google.com/store/apps/details?id=org.jacobrakaifoundation.beanstalk) · [source](https://github.com/jacobrakaiFoundation/beanstalk).
+- [**airpods-connect**](https://github.com/jacobrakaiFoundation/airpods-connect) — one-click Bluetooth connect for AirPods on Windows, taking them back from an iPhone with no admin rights and no network connections.
+- [**claude-mods**](https://github.com/jacobrakaiFoundation/claude-mods) — open-source add-ons and desktop helpers for Claude Code and the Claude desktop app.
 
 ## Veterans
 
@@ -86,4 +92,4 @@ Jacobrakai Foundation (EIN 33-3382083) is recognized by the IRS as a tax-exempt 
 
 [About the Foundation](https://jacobrakai.org/about/) · [Sources and corrections](https://jacobrakai.org/authorities/) · [Website](https://jacobrakai.org/) · [LinkedIn](https://www.linkedin.com/company/jacobrakai/)
 
-<small>Page last reviewed <time datetime="2026-10">October 2026</time>.</small>
+<small>Page last reviewed <time datetime="2026-11">November 2026</time>.</small>
