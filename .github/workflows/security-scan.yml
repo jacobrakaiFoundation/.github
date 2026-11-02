@@ -24,6 +24,10 @@ on:
         description: Severity at which dependency review fails — low, moderate, high, critical.
         type: string
         default: high
+      auto-approve-dependabot:
+        description: Automatically approve and enable auto-merge on Dependabot PRs after dependency review passes.
+        type: boolean
+        default: true
 
 jobs:
   codeql:
@@ -36,9 +40,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # The job is skipped by the `if` above when no language is requested.
-        # The fallback keeps the matrix non-empty regardless, since an empty
-        # matrix vector is a workflow error rather than a skip.
         language: ${{ fromJSON(inputs.codeql-languages != '[]' && inputs.codeql-languages || '["javascript-typescript"]') }}
     steps:
       - name: Check out the calling repository
@@ -71,3 +72,20 @@ jobs:
         with:
           fail-on-severity: ${{ inputs.fail-on-severity }}
           comment-summary-in-pr: on-failure
+
+  dependabot-approve:
+    if: inputs.auto-approve-dependabot && github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+    needs: [dependency-review]
+    name: Approve Dependabot PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
+    steps:
+      - name: Approve and enable auto-merge
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --squash "$PR_URL" || true
