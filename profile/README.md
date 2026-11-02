@@ -2,7 +2,9 @@
 
 <a href="https://jacobrakai.org/#gh-light-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-light.svg" alt="Free court forms. Open security research." width="960" /></a><a href="https://jacobrakai.org/#gh-dark-mode-only"><img src="https://raw.githubusercontent.com/jacobrakaiFoundation/.github/main/profile/foundation-dark.svg" alt="Free court forms. Open security research." width="960" /></a>
 
-We build free resources for people navigating New Jersey courts, publish security research for people running online services, and make free apps and games with no ads and no accounts.
+Jacobrakai Foundation is a 501(c)(3) public charity that builds free public-interest software: court self-help tools for New Jersey, threat data and security research for teams running online services, and no-ads, no-account apps.
+
+**Work with us** — legal-aid organizations, courts and municipalities, security teams, and funders: [jacob@jacobrakai.org](mailto:jacob@jacobrakai.org) · [Donate](https://donate.stripe.com/eVq4gy97DanS9h60phfrW00)
 
 [Forms ↗](https://in.formapauperis.com/nj/run/njforms/) · [Research](https://jacobrakai.org/research/) · [Threat data](https://jacobrakai.org/feed/) · [Apps & games](#apps-and-games) · [Veterans](https://jacobrakai.org/veterans/) · [Sources](https://jacobrakai.org/authorities/) · [About](https://jacobrakai.org/about/)
 
@@ -64,13 +66,12 @@ The [table of authorities](https://jacobrakai.org/authorities/) records sources,
 
 ## Apps and games
 
-Free, with no ads and no accounts. Android today, on Google Play, plus open-source desktop and developer tools.
+Free, with no ads and no accounts. Android today, on Google Play, plus open-source desktop tools.
 
 - [**FreeDF**](https://play.google.com/store/apps/details?id=freedf.jacobrakai.org) — a document scanner that turns paper into a PDF on your phone. Scans stay on the phone; the Foundation runs no server for the app. An iPhone version is in preparation. [Privacy details](https://jacobrakai.org/privacy/).
 - [**GGz**](https://jacobrakai.org/ggz/) — five small games built for screen readers first, including two audio games: a quiz-show trivia board and hangman read letter by letter.
 - [**Beanstalk**](https://jacobrakaifoundation.github.io/beanstalk/) — search FDA and USDA food recall records by product, company or hazard, with source links and local watchlists. [Google Play](https://play.google.com/store/apps/details?id=org.jacobrakaifoundation.beanstalk) · [source](https://github.com/jacobrakaiFoundation/beanstalk).
 - [**airpods-connect**](https://github.com/jacobrakaiFoundation/airpods-connect) — one-click Bluetooth connect for AirPods on Windows, taking them back from an iPhone with no admin rights and no network connections.
-- [**claude-mods**](https://github.com/jacobrakaiFoundation/claude-mods) — open-source add-ons and desktop helpers for Claude Code and the Claude desktop app.
 
 ## Veterans
 
